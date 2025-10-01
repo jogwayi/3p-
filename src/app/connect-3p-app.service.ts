@@ -10,9 +10,9 @@ export class Connect3pAppService {
   provider: AmazonConnectApp
   agentClient: any
   constructor() {
-    console.log('Initialiing...');
+    console.log('3P-APP', 'Initializing...');
     const { provider } = AmazonConnectApp.init({
-      onCreate: this.onCreate,
+      onCreate: this.onCreate.bind(this),
       onDestroy: this.onDestroy
     });
     this.provider = provider
@@ -22,7 +22,7 @@ export class Connect3pAppService {
    onCreate(event: any): Promise<void> {
       return new Promise((resolve) => {
         const { appInstanceId } = event.context;
-        console.log('App initialized: ', appInstanceId);
+        console.log('3P-APP', 'App initialized: ', appInstanceId);
         this.agentClient = new AgentClient(this.provider);
         this.subscribeToAgentContactEvents()
         resolve();
@@ -32,7 +32,7 @@ export class Connect3pAppService {
    onDestroy(event: any): Promise<void> {
       return new Promise((resolve) => {
         const { appInstanceId } = event.context;
-        console.log('App initialized: ', appInstanceId);
+        console.log('3P-APP', 'App destroyed: ', appInstanceId);
         resolve();
      })
    }
