@@ -24,6 +24,7 @@ export class Connect3pAppService {
         const { appInstanceId } = event.context;
         console.log('App initialized: ', appInstanceId);
         this.agentClient = new AgentClient(this.provider);
+        this.subscribeToAgentContactEvents()
         resolve();
      })
    }
